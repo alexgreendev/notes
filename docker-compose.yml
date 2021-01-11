@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  database:
+    image: postgres:12.4
+    container_name: database
+    user: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./database:/database
+      - data-postgres12:/var/lib/postgresql/12/main
+    ports:
+      - "6432:5432"
+  note_service:
+    image: note_service
+    build:
+      context: note_service/dependencies/docker
+      dockerfile: Dockerfile
+    container_name: note_service
+    working_dir: /usr/note_service
+    restart: always
+    volumes:
+      - ./note_service:/usr/note_service
+    command: npm run start
+    ports:
+    - "3000:3000"
+
+volumes:
+  data-postgres12:
