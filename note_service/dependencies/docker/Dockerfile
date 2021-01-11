@@ -76,3 +76,4 @@ RUN addgroup -g 1000 node \
 WORKDIR /usr/note_service 
 
 RUN npm i -g @nestjs/cli
+RUN npm install -g typescript
